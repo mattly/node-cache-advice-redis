@@ -1,0 +1,37 @@
+{
+  "name": "cache-advice-redis",
+  "description": "interface for cache-advice, using redis",
+  "version": "0.0.1",
+  "author": "Matthew Lyon <matthew@lyonheart.us>",
+  "keywords": [
+    "cache",
+    "functional",
+    "aspect-oriented-programming",
+    "redis"
+  ],
+  "tags": [
+    "cache",
+    "functional",
+    "aspect-oriented-programming",
+    "redis"
+  ],
+  "homepage": "https://github.com/mattly/node-cache-advice-redis",
+  "repository": "git://github.com/mattly/node-cache-advice-redis.git",
+  "bugs": "https://github.com/mattly/node-cache-advice-redis/issues",
+  "dependencies": {
+    "redis": "0.8.x"
+  },
+  "devDependencies": {
+    "coffee-script": "1.6.x",
+    "mocha": "1.8.x",
+    "chai": "1.4.x"
+  },
+  "scripts": {
+    "prepublish": "make build",
+    "test": "make test"
+  },
+  "main": "index.js",
+  "engines": {
+    "node": "*"
+  }
+}
