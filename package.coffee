@@ -15,6 +15,7 @@ info =
     'redis': '0.8.x'
 
   devDependencies:
+    fakeredis: '0.1.1'
     # deal with it
     'coffee-script': '1.6.x'
     # test runner / framework
