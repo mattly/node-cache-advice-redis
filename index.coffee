@@ -17,8 +17,7 @@ module.exports = (config) ->
     expire: config.expire
 
   namespace = (key) ->
-    if cache.namespace then "#{cache.namespace}:#{key}"
-    else key
+    if cache.namespace then "#{cache.namespace}:#{key}" else key
 
   cache.set = (key, data, callback) ->
     key = namespace(key)
