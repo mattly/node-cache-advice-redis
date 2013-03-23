@@ -1,12 +1,12 @@
 assert = require('chai').assert
 fakeRedis = require('fakeredis')
 
-advice = require('../index')
+cacher = require('../index')
 
 ctx = {}
 beforeEach ->
   ctx.redis = redis = fakeRedis.createClient()
-  ctx.cacher = advice({redis})
+  ctx.cacher = cacher({redis})
 
 setKey = (key, val) ->
   (done) -> ctx.redis.set(key, val, done)
@@ -56,5 +56,19 @@ describe "getting a key", ->
     beforeEach ->
       theErr = new Error()
       theErr.name = 'MyError'
-      ctx.redis.get = (key, cb) -> cb(theErr)
+      ctx.redis.get = (key, cb) -> if key is 'key' then cb(theErr) else cb()
     it "provides an error", err('MyError', op('cacher.get', 'key'))
+
+describe "deleting a key", ->
+  beforeEach(setKey('key','"value"'))
+
+  describe "on success", ->
+    beforeEach (done) -> ctx.cacher.del('key', done)
+    it "removes the key", op('redis.get', 'key', null)
+
+  describe "when redis returns an error", ->
+    beforeEach ->
+      theErr = new Error()
+      theErr.name = 'MyError'
+      ctx.redis.del = (key, cb) -> if key is 'key' then cb(theErr) else cb()
+    it "provides the error", err('MyError', op('cacher.del', 'key'))
