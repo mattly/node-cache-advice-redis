@@ -1,12 +1,13 @@
 module.exports = (config) ->
   if not config.redis
     do ->
+      redisLib = config.redisLib or require('redis')
       if config.url
         {hostname, port, auth} = require('url').parse(config.url)
       else {hostname, port, auth} = config
       hostname or= 'localhost'
       port or= 6379
-      config.redis = require('redis').createClient(port, hostname)
+      config.redis = redisLib.createClient(port, hostname)
       if auth
         password = auth.split(':')[1]
         config.redis.auth(password)
